@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavbarsService } from 'src/app/services/navbars.service';
 
 @Component({
   selector: 'app-navbar',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
-  constructor() { }
+  username :String;
+  constructor(public nav : NavbarsService) { }
 
   ngOnInit(): void {
+    this.username=sessionStorage.getItem('username');
   }
 
 }

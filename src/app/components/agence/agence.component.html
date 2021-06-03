@@ -1,0 +1,9 @@
+<ng2-smart-table
+ [settings]="settings"
+  [source]="this.agences"
+  (createConfirm)="onAddAgence($event)"
+  (editConfirm)="onUpdateAgence($event)"
+  (deleteConfirm)="onDeleteAgence($event)"
+  (custom)="onCustomAction($event)"
+  (userRowSelect)="onUserRowSelect($event)"
+></ng2-smart-table>

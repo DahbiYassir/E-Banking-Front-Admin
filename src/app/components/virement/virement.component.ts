@@ -13,24 +13,22 @@ import { VirementsService } from 'src/app/services/virements.service';
 })
 export class VirementComponent implements OnInit {
   benificiaires:Benificiaire[]=[];
-
-
-
+  $ : any ;
 
   settings = {
-    actions: { edit: false, delete:false},
+    actions: { edit: false, delete:false,},
+    
     add: {
       createButtonContent: 'Create',
       cancelButtonContent: 'Cancel',
       confirmCreate: true,
+     
     },
     edit: {
       editButtonContent: 'Edit',
       saveButtonContent: 'Save',
       cancelButtonContent: 'Cancel',
       confirmSave: true,
-
-
     },
     columns: {
      
@@ -43,15 +41,7 @@ export class VirementComponent implements OnInit {
 
           }
         },
-        title: 'benificiaire',
-        valuePrepareFunction: (cell, row,test) => {
-          //debugger
-          var t=test.column.dataSet.columns[0].settings.editor.config.list.find(x=>x.nom===cell)
-          //this.settings = Object.assign({}, this.settings);
-  
-          if(t)
-           return t.title },
-         filter: false
+        title: 'benificiaire'
               
       }, 
       
@@ -101,10 +91,6 @@ export class VirementComponent implements OnInit {
     
       }
 
-  setListt(){
-    
-  }
-
   getVirements(){
     this.virementService.getVirement().subscribe(
 
@@ -150,6 +136,18 @@ export class VirementComponent implements OnInit {
 
 
   onAddVirement(event) {
+    if (window.confirm('Are you sure you want to create?')){
+      this.virementService.addVirement(event.newData).subscribe(
+        res => {
+       // console.log(res); 
+        this.getVirements();
+        
+       }, 
+       (error:HttpErrorResponse) => {
+        console.log(error);
+        
+        });
+    }
     this.virementService.addVirement(event.newData).subscribe(
       res => {
      // console.log(res); 
@@ -162,6 +160,8 @@ export class VirementComponent implements OnInit {
       });
   
   }
+  
+
 
   onUpdateVirement(event) {
     this.virementService.updateVirement(event.newData).subscribe(
